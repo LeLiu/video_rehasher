@@ -1,0 +1,75 @@
+# Flutter/Dart相关文件
+.dart_tool/
+.packages
+.pub-cache/
+.pub/
+build/
+.fvm/
+
+# Android相关文件
+android/
+*.apk
+*.aab
+*.keystore
+
+# iOS相关文件
+ios/
+*.ipa
+*.xcworkspace
+
+# macOS相关文件
+macos/Flutter/ephemeral/
+macos/Pods/
+macos/dgph
+macos/xcuserdata/
+
+# Windows相关文件
+windows/flutter/ephemeral/
+windows/x64/
+windows/x86/
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+*.[Cc]ache
+!*.[Cc]ache/
+
+# IDE相关文件
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# 操作系统文件
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# 日志文件
+*.log
+logs/
+
+# 环境变量文件
+.env
+.env.local
+.env.production
+
+# 临时文件
+*.tmp
+*.temp
+
+# 包依赖锁定文件（如果需要，可以取消注释）
+# pubspec.lock
+
+# 项目特定文件
+# 处理后的视频文件（根据项目需求添加）
+# processed_videos/
+# output/
+
+# 其他
+*.iml
