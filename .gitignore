@@ -6,6 +6,9 @@
 build/
 .fvm/
 
+# FFmpeg可执行文件（超过GitHub文件大小限制）
+windows/depend/ffmpeg.exe
+
 # Android相关文件
 android/
 *.apk
