@@ -1,21 +1,30 @@
 #!/bin/bash
 
-# 复制FFmpeg二进制文件到应用包
-echo "Copying FFmpeg binary to app bundle..."
+# 确保FFmpeg被复制到应用包的脚本
+# 这个脚本应该在每次构建后运行
 
-# 获取构建目录
-BUILD_DIR="${BUILT_PRODUCTS_DIR}"
-APP_NAME="${PRODUCT_NAME}.app"
-FFMPEG_SOURCE="${PROJECT_DIR}/depend/ffmpeg"
-FFMPEG_DEST="${BUILD_DIR}/${APP_NAME}/Contents/MacOS/ffmpeg"
+echo "Ensuring FFmpeg is copied to app bundles..."
 
-# 检查源文件是否存在
-if [ -f "$FFMPEG_SOURCE" ]; then
-    echo "Copying FFmpeg from $FFMPEG_SOURCE to $FFMPEG_DEST"
-    cp "$FFMPEG_SOURCE" "$FFMPEG_DEST"
-    chmod +x "$FFMPEG_DEST"
-    echo "FFmpeg copied successfully"
+# 复制到Debug版本
+DEBUG_APP_DIR="build/macos/Build/Products/Debug/Video Rehasher.app/Contents/MacOS"
+if [ -d "$DEBUG_APP_DIR" ]; then
+    echo "Copying FFmpeg to Debug app bundle..."
+    cp "macos/depend/ffmpeg" "$DEBUG_APP_DIR/ffmpeg"
+    chmod +x "$DEBUG_APP_DIR/ffmpeg"
+    echo "FFmpeg copied to Debug bundle"
 else
-    echo "Error: FFmpeg binary not found at $FFMPEG_SOURCE"
-    exit 1
+    echo "Debug app bundle not found at $DEBUG_APP_DIR"
 fi
+
+# 复制到Release版本  
+RELEASE_APP_DIR="build/macos/Build/Products/Release/Video Rehasher.app/Contents/MacOS"
+if [ -d "$RELEASE_APP_DIR" ]; then
+    echo "Copying FFmpeg to Release app bundle..."
+    cp "macos/depend/ffmpeg" "$RELEASE_APP_DIR/ffmpeg"
+    chmod +x "$RELEASE_APP_DIR/ffmpeg"
+    echo "FFmpeg copied to Release bundle"
+else
+    echo "Release app bundle not found at $RELEASE_APP_DIR"
+fi
+
+echo "FFmpeg copy process completed"
