@@ -29,8 +29,8 @@ class ProgressSection extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text('处理进度', style: TDesignTypography.titleMedium),
-            const SizedBox(height: TDesignSpacing.sm),
+            //Text('处理进度', style: TDesignTypography.titleMedium),
+            //const SizedBox(height: TDesignSpacing.sm),
             Row(
               children: [
                 // 圆形进度指示器

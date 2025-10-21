@@ -28,8 +28,8 @@ class DirectorySelection extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text('目录设置', style: TDesignTypography.titleMedium),
-            const SizedBox(height: TDesignSpacing.md),
-            Text('源目录', style: TDesignTypography.bodyMedium),
+            const SizedBox(height: TDesignSpacing.sm),
+            //Text('源目录', style: TDesignTypography.bodyMedium),
             Row(
               children: [
                 Expanded(
@@ -70,8 +70,8 @@ class DirectorySelection extends StatelessWidget {
                 ),
               ],
             ),
-            const SizedBox(height: TDesignSpacing.md),
-            Text('目标目录', style: TDesignTypography.bodyMedium),
+            const SizedBox(height: TDesignSpacing.sm),
+            //Text('目标目录', style: TDesignTypography.bodyMedium),
             Row(
               children: [
                 Expanded(

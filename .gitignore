@@ -38,7 +38,7 @@ windows/x86/
 !*.[Cc]ache/
 
 # IDE相关文件
-.vscode/
+#.vscode/
 .idea/
 *.swp
 *.swo

@@ -51,7 +51,7 @@ class _FileListState extends State<FileList> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text('视频文件列表', style: TDesignTypography.titleMedium),
-            const SizedBox(height: TDesignSpacing.md),
+            const SizedBox(height: TDesignSpacing.sm),
             Text('找到 ${widget.videoFiles.length} 个视频文件', style: TDesignTypography.bodyMedium),
             const SizedBox(height: TDesignSpacing.sm),
             Expanded(

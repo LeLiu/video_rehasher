@@ -56,7 +56,7 @@ class _VideoProcessorUIState extends State<VideoProcessorUI> with SingleTickerPr
               onSelectSourceDirectory: () => processor.selectSourceDirectory(),
               onSelectTargetDirectory: () => processor.selectTargetDirectory(),
             ),
-            const SizedBox(height: 24.0),
+            //const SizedBox(height: 8.0),
             // 进度监控区域
             ProgressSection(
               isProcessing: processor.isProcessing,
@@ -65,7 +65,7 @@ class _VideoProcessorUIState extends State<VideoProcessorUI> with SingleTickerPr
               processedCount: processor.processedCount,
               totalCount: processor.videoFiles.length,
             ),
-            const SizedBox(height: 24.0),
+            //const SizedBox(height: 8.0),
             // 文件列表区域
             Expanded(
               child: FileList(

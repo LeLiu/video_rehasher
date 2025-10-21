@@ -11,8 +11,8 @@ class ErrorBanner extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       width: double.infinity,
-      padding: const EdgeInsets.all(TDesignSpacing.md),
-      margin: const EdgeInsets.only(bottom: TDesignSpacing.md),
+      padding: const EdgeInsets.all(TDesignSpacing.sm),
+      margin: const EdgeInsets.only(bottom: TDesignSpacing.sm),
       decoration: BoxDecoration(
         color: TDesignColors.error.withValues(alpha: 0.08),
         border: Border.all(color: TDesignColors.error.withValues(alpha: 0.3)),
