@@ -48,7 +48,7 @@ String getVideoFormatIcon(String format) {
     '.mov': 'mov.png',
     '.mkv': 'mkv.png',
     '.flv': 'flv.png',
-    '.wmv': 'wmv.png',
+    '.3gp': '3gp.png',
     '.webm': 'webm.png',
   };
   final iconName = formatMap[format.toLowerCase()] ?? 'video.png';
@@ -92,13 +92,13 @@ String getFfmpegPath() {
     final bundleDir = path.dirname(bundlePath);
     print('Bundle path: $bundlePath');
     print('Bundle dir: $bundleDir');
-    
+
     // 检查应用包内是否有ffmpeg
     final bundleFfmpegPath = path.join(bundleDir, 'ffmpeg');
     final bundleFfmpegFile = File(bundleFfmpegPath);
     print('Bundle FFmpeg path: $bundleFfmpegPath');
     print('Bundle FFmpeg exists: ${bundleFfmpegFile.existsSync()}');
-    
+
     if (bundleFfmpegFile.existsSync()) {
       return bundleFfmpegPath;
     }
@@ -108,7 +108,7 @@ String getFfmpegPath() {
     final projectFfmpegFile = File(projectFfmpegPath);
     print('Project FFmpeg path: $projectFfmpegPath');
     print('Project FFmpeg exists: ${projectFfmpegFile.existsSync()}');
-    
+
     if (projectFfmpegFile.existsSync()) {
       return projectFfmpegPath;
     }
