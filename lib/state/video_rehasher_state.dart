@@ -116,6 +116,10 @@ class VideoRehasherState extends ChangeNotifier {
   }
 
   Future<void> processVideos() async {
+    print('processVideos called');
+    print('_targetDirectory: $_targetDirectory');
+    print('_videoFiles.length: ${_videoFiles.length}');
+    
     if (_targetDirectory == null) {
       _currentStatus = '请选择目标目录';
       notifyListeners();

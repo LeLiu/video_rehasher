@@ -39,6 +39,11 @@ class ActionButtons extends StatelessWidget {
                   ? onCancelProcessing
                   : (hasVideoFiles && hasTargetDirectory && !hasErrorMessage
                         ? () {
+                            print('Start button pressed');
+                            print('hasVideoFiles: $hasVideoFiles');
+                            print('hasTargetDirectory: $hasTargetDirectory');
+                            print('hasErrorMessage: $hasErrorMessage');
+                            print('processedCount: $processedCount');
                             // 如果有已处理的文件，先重新扫描列表
                             if (processedCount > 0) {
                               onRestartProcessing();

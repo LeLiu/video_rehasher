@@ -1,0 +1,68 @@
+platform :osx, '10.14'
+source 'https://mirrors.tuna.tsinghua.edu.cn/git/CocoaPods/Specs.git'
+# CocoaPods analytics sends network stats synchronously affecting flutter build latency.
+ENV['COCOAPODS_DISABLE_STATS'] = 'true'
+
+project 'Runner', {
+  'Debug' => :debug,
+  'Profile' => :release,
+  'Release' => :release,
+}
+
+def flutter_root
+  generated_xcode_build_settings_path = File.expand_path(File.join('..', 'Flutter', 'ephemeral', 'Flutter-Generated.xcconfig'), __FILE__)
+  unless File.exist?(generated_xcode_build_settings_path)
+    raise "#{generated_xcode_build_settings_path} must exist. If you're running pod install manually, make sure \"flutter pub get\" is executed first"
+  end
+
+  File.foreach(generated_xcode_build_settings_path) do |line|
+    matches = line.match(/FLUTTER_ROOT\=(.*)/)
+    return matches[1].strip if matches
+  end
+  raise "FLUTTER_ROOT not found in #{generated_xcode_build_settings_path}. Try deleting Flutter-Generated.xcconfig, then run \"flutter pub get\""
+end
+
+require File.expand_path(File.join('packages', 'flutter_tools', 'bin', 'podhelper'), flutter_root)
+
+flutter_macos_podfile_setup
+
+target 'Runner' do
+  use_frameworks!
+
+  flutter_install_all_macos_pods File.dirname(File.realpath(__FILE__))
+  target 'RunnerTests' do
+    inherit! :search_paths
+  end
+end
+
+post_install do |installer|
+  installer.pods_project.targets.each do |target|
+    flutter_additional_macos_build_settings(target)
+  end
+  
+  # 添加FFmpeg二进制文件复制脚本
+  project = installer.pods_project
+  target = project.targets.find { |t| t.name == 'Runner' }
+  
+  if target
+    # 创建复制FFmpeg的构建阶段
+    copy_ffmpeg_phase = project.new(Xcodeproj::Project::Object::PBXShellScriptBuildPhase)
+    copy_ffmpeg_phase.name = 'Copy FFmpeg Binary'
+    copy_ffmpeg_phase.shell_script = <<-SCRIPT
+    # 复制FFmpeg二进制文件到应用包
+    FFMPEG_SOURCE="${PROJECT_DIR}/depend/ffmpeg"
+    FFMPEG_DEST="${BUILT_PRODUCTS_DIR}/${CONTENTS_FOLDER_PATH}/ffmpeg"
+    
+    if [ -f "$FFMPEG_SOURCE" ]; then
+      echo "Copying FFmpeg binary..."
+      cp "$FFMPEG_SOURCE" "$FFMPEG_DEST"
+      chmod +x "$FFMPEG_DEST"
+    else
+      echo "Warning: FFmpeg binary not found at $FFMPEG_SOURCE"
+    fi
+    SCRIPT
+    
+    # 将复制脚本添加到构建阶段的开头
+    target.build_phases.unshift(copy_ffmpeg_phase)
+  end
+end

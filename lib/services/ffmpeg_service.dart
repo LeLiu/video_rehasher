@@ -69,9 +69,16 @@ class FfmpegService {
 
       // 获取ffmpeg.exe的路径
       final ffmpegPath = getFfmpegPath();
+      print('FFmpeg path: $ffmpegPath');
+      print('FFmpeg command: $command');
 
       // 执行FFmpeg命令 - 使用项目自带的ffmpeg.exe
       final result = await Process.run(ffmpegPath, command);
+      print('FFmpeg exit code: ${result.exitCode}');
+      print('FFmpeg stdout: ${result.stdout}');
+      if (result.stderr.isNotEmpty) {
+        print('FFmpeg stderr: ${result.stderr}');
+      }
 
       if (result.exitCode == 0) {
         onStatusUpdate('完成: ${videoFile.name}');

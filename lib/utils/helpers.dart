@@ -66,23 +66,52 @@ bool isSupportedVideoFormat(String filePath) {
   return getSupportedVideoFormats().contains(fileExtension);
 }
 
-// 获取ffmpeg.exe的路径
+// 获取ffmpeg的路径
 String getFfmpegPath() {
-  // 在Windows上，ffmpeg.exe会被拷贝到应用程序目录
-  final appDir = Directory.current.path;
-  final ffmpegPath = path.join(appDir, 'ffmpeg.exe');
+  if (Platform.isWindows) {
+    // 在Windows上，ffmpeg.exe会被拷贝到应用程序目录
+    final appDir = Directory.current.path;
+    final ffmpegPath = path.join(appDir, 'ffmpeg.exe');
 
-  // 检查应用程序目录中的ffmpeg.exe是否存在
-  final ffmpegFile = File(ffmpegPath);
-  if (ffmpegFile.existsSync()) {
-    return ffmpegPath;
-  }
+    // 检查应用程序目录中的ffmpeg.exe是否存在
+    final ffmpegFile = File(ffmpegPath);
+    if (ffmpegFile.existsSync()) {
+      return ffmpegPath;
+    }
 
-  // 如果应用程序目录中没有，则使用项目目录中的ffmpeg.exe
-  final projectFfmpegPath = path.join(Directory.current.path, 'windows', 'depend', 'ffmpeg.exe');
-  final projectFfmpegFile = File(projectFfmpegPath);
-  if (projectFfmpegFile.existsSync()) {
-    return projectFfmpegPath;
+    // 如果应用程序目录中没有，则使用项目目录中的ffmpeg.exe
+    final projectFfmpegPath = path.join(Directory.current.path, 'windows', 'depend', 'ffmpeg.exe');
+    final projectFfmpegFile = File(projectFfmpegPath);
+    if (projectFfmpegFile.existsSync()) {
+      return projectFfmpegPath;
+    }
+  } else if (Platform.isMacOS) {
+    // 在macOS上，首先尝试应用包内的ffmpeg
+    // 获取应用包路径
+    final bundlePath = Platform.resolvedExecutable;
+    final bundleDir = path.dirname(bundlePath);
+    print('Bundle path: $bundlePath');
+    print('Bundle dir: $bundleDir');
+    
+    // 检查应用包内是否有ffmpeg
+    final bundleFfmpegPath = path.join(bundleDir, 'ffmpeg');
+    final bundleFfmpegFile = File(bundleFfmpegPath);
+    print('Bundle FFmpeg path: $bundleFfmpegPath');
+    print('Bundle FFmpeg exists: ${bundleFfmpegFile.existsSync()}');
+    
+    if (bundleFfmpegFile.existsSync()) {
+      return bundleFfmpegPath;
+    }
+
+    // 如果应用包内没有，则使用项目目录中的ffmpeg二进制文件（开发环境）
+    final projectFfmpegPath = path.join(Directory.current.path, 'macos', 'depend', 'ffmpeg');
+    final projectFfmpegFile = File(projectFfmpegPath);
+    print('Project FFmpeg path: $projectFfmpegPath');
+    print('Project FFmpeg exists: ${projectFfmpegFile.existsSync()}');
+    
+    if (projectFfmpegFile.existsSync()) {
+      return projectFfmpegPath;
+    }
   }
 
   // 如果都没有找到，则使用系统ffmpeg作为后备
